@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 
 class Login extends React.Component {
   constructor() {
@@ -21,6 +22,20 @@ class Login extends React.Component {
     const min = 0;
     const response = name.length > min;
     this.setState({ isValidName: response });
+  }
+
+  goToSettings = () => {
+    const { history } = this.props;
+    history.push('/settings');
+  }
+
+  goToGame= async () => {
+    const { history } = this.props;
+    const url = 'https://opentdb.com/api_token.php?command=request';
+    const response = await fetch(url);
+    const apiData = await response.json();
+    localStorage.setItem('token', apiData.token);
+    history.push('/game');
   }
 
   inpuHandleChange = ({ target: { value, name } }) => {
@@ -55,9 +70,16 @@ class Login extends React.Component {
             data-testid="btn-play"
             type="submit"
             disabled={ !isValidEmail || !isValidName }
-            onClick={ this.login }
+            onClick={ this.goToGame }
           >
-            jogar
+            Play
+          </button>
+          <button
+            data-testid="btn-settings"
+            type="button"
+            onClick={ this.goToSettings }
+          >
+            Settings
           </button>
         </div>
       </>
@@ -66,3 +88,9 @@ class Login extends React.Component {
 }
 
 export default Login;
+
+Login.propTypes = {
+  history: propTypes.shape({
+    push: propTypes.func,
+  }).isRequired,
+};
