@@ -24,7 +24,12 @@ class Login extends React.Component {
     this.setState({ isValidName: response });
   }
 
-  letPlay = async () => {
+  goToSettings = () => {
+    const { history } = this.props;
+    history.push('/settings');
+  }
+
+  goToGame= async () => {
     const { history } = this.props;
     const url = 'https://opentdb.com/api_token.php?command=request';
     const response = await fetch(url);
@@ -65,9 +70,16 @@ class Login extends React.Component {
             data-testid="btn-play"
             type="submit"
             disabled={ !isValidEmail || !isValidName }
-            onClick={ this.letPlay }
+            onClick={ this.goToGame }
           >
             Play
+          </button>
+          <button
+            data-testid="btn-settings"
+            type="button"
+            onClick={ this.goToSettings }
+          >
+            Settings
           </button>
         </div>
       </>
