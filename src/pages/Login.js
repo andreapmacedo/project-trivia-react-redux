@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 
 class Login extends React.Component {
   constructor() {
@@ -14,16 +15,22 @@ class Login extends React.Component {
   validityEmail = (email) => {
     // https://www.horadecodar.com.br/2020/09/13/como-validar-email-com-javascript/
     const response = /\S+@\S+\.\S+/;
-    console.log(response.test(email));
     this.setState({ isValidEmail: response.test(email) });
   }
 
   validityName = (name) => {
     const min = 0;
     const response = name.length > min;
-    console.log(response);
-    console.log(name);
     this.setState({ isValidName: response });
+  }
+
+  letPlay = async () => {
+    const { history } = this.props;
+    const url = 'https://opentdb.com/api_token.php?command=request';
+    const response = await fetch(url);
+    const api_data = await response.json();
+    localStorage.setItem('token', api_data.token);
+    history.push('/game');
   }
 
   inpuHandleChange = ({ target: { value, name } }) => {
@@ -58,9 +65,9 @@ class Login extends React.Component {
             data-testid="btn-play"
             type="submit"
             disabled={ !isValidEmail || !isValidName }
-            onClick={ this.login }
+            onClick={ this.letPlay }
           >
-            jogar
+            Play
           </button>
         </div>
       </>
@@ -69,3 +76,9 @@ class Login extends React.Component {
 }
 
 export default Login;
+
+Login.propTypes = {
+  history: propTypes.shape({
+    push: propTypes.func,
+  }).isRequired,
+}
