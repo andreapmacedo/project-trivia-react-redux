@@ -33,8 +33,8 @@ class Login extends React.Component {
     const { history } = this.props;
     const url = 'https://opentdb.com/api_token.php?command=request';
     const response = await fetch(url);
-    const api_data = await response.json();
-    localStorage.setItem('token', api_data.token);
+    const apiData = await response.json();
+    localStorage.setItem('token', apiData.token);
     history.push('/game');
   }
 
@@ -93,4 +93,4 @@ Login.propTypes = {
   history: propTypes.shape({
     push: propTypes.func,
   }).isRequired,
-}
+};
