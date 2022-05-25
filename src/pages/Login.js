@@ -38,7 +38,7 @@ class Login extends React.Component {
     history.push('/game');
   }
 
-  inpuHandleChange = ({ target: { value, name } }) => {
+  inputHandleChange = ({ target: { value, name } }) => {
     this.setState({ [name]: value });
     if (name === 'email') this.validityEmail(value);
     if (name === 'name') this.validityName(value);
@@ -55,7 +55,7 @@ class Login extends React.Component {
             data-testid="input-player-name"
             type="text"
             name="name"
-            onChange={ this.inpuHandleChange }
+            onChange={ this.inputHandleChange }
             value={ name }
           />
           Email
@@ -63,7 +63,7 @@ class Login extends React.Component {
             data-testid="input-gravatar-email"
             type="email"
             name="email"
-            onChange={ this.inpuHandleChange }
+            onChange={ this.inputHandleChange }
             value={ email }
           />
           <button
