@@ -77,6 +77,7 @@ class Game extends Component {
         { questions.length > 0
         && (
           <div>
+            <Header />
             <h2 data-testid="question-category">{questions[qIndex].category}</h2>
             <p data-testid="question-text">{questions[qIndex].question}</p>
             <div data-testid="answer-options">
