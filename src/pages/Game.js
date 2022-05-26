@@ -10,7 +10,9 @@ class Game extends Component {
     super();
     this.state = {
       questions: [],
+      shuffledQuestions: [],
       qIndex: 0,
+      answeredIndex: [],
       loading: false,
     };
   }
@@ -41,6 +43,7 @@ class Game extends Component {
       questions: apiData.results,
     });
     this.setState({ loading: false });
+    this.getAnswers(0);
   }
 
   // checkGlobalState = () => {
@@ -53,46 +56,54 @@ class Game extends Component {
   // }
 
   getAnswers = (index) => {
-    // https://www.horadecodar.com.br/2021/05/10/como-embaralhar-um-array-em-javascript-shuffle/
-    function shuffleArray(arr) {
-      for (let i = arr.length - 1; i > 0; i -= 1) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-      }
-      return arr;
-    }
-    // console.log(this.state.index);
+    // console.log('getAnswer', index);
     const { questions } = this.state;
-    const allAnswers = questions[index].incorrect_answers;
-    allAnswers.push(questions[index].correct_answer);
-    return shuffleArray(allAnswers);
+    const shuffled = questions[index].incorrect_answers;
+    shuffled.push(questions[index].correct_answer);
+    shuffled.sort();
+    this.setState({
+      shuffledQuestions: shuffled,
+    });
   }
 
   checkCorrect = (answer, correct) => answer === correct
 
   controlQuestions = (index) => {
-    // const { qIndex } = this.state;
     const maxQuestions = 4;
-    console.log(index);
+    // console.log(index);
     if (index >= maxQuestions) {
       this.setState({
         qIndex: 0,
       });
       this.fetchQuestion();
     } else {
-      this.setState({ qIndex: index + 1 });
+      this.setState({
+        qIndex: index + 1,
+      });
     }
   }
 
-  checkAnswer = (answer, correct, index) => {
-    console.log(index);
+  checkAnswer = (answer, correct, qIndex, rIndex) => {
+    const { answeredIndex } = this.state;
     const result = this.checkCorrect(answer, correct);
-    if (result) this.controlQuestions(index);
+
+    if (result) {
+      const maxQuestions = 4;
+      if (qIndex < maxQuestions) this.getAnswers(qIndex + 1);
+      this.setState({
+        answeredIndex: [],
+      });
+      this.controlQuestions(qIndex);
+    } else {
+      this.setState({
+        answeredIndex: [...answeredIndex, rIndex],
+      });
+    }
   }
 
   render() {
     // const { questions } = this.props;
-    const { questions, qIndex, loading } = this.state;
+    const { questions, qIndex, loading, shuffledQuestions } = this.state;
     return (
       <section>
         { (questions.length > 0 && !loading)
@@ -102,12 +113,12 @@ class Game extends Component {
             <h2 data-testid="question-category">{questions[qIndex].category}</h2>
             <p data-testid="question-text">{questions[qIndex].question}</p>
             <div data-testid="answer-options">
-              { this.getAnswers(qIndex).map((answer, index) => (
+              { shuffledQuestions.map((answer, index) => (
                 <button
                   key={ index }
                   className={
                     (this.checkCorrect(answer, questions[qIndex].correct_answer))
-                      ? ''
+                      ? 'correct-answer'
                       : 'red'
                   }
                   data-testid={
@@ -118,7 +129,7 @@ class Game extends Component {
                   type="button"
                   onClick={
                     () => this.checkAnswer(answer,
-                      questions[qIndex].correct_answer, qIndex)
+                      questions[qIndex].correct_answer, qIndex, index)
                   }
                 >
                   { answer }
