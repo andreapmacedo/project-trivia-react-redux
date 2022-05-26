@@ -11,9 +11,11 @@ class Game extends Component {
     this.state = {
       questions: [],
       shuffledQuestions: [],
-      qIndex: 0,
-      answeredIndex: [],
+      questionIndex: 0,
+      // answeredIndex: [],
       loading: false,
+      btnDisabled: true,
+      stateClassName: '',
     };
   }
 
@@ -68,73 +70,111 @@ class Game extends Component {
 
   checkCorrect = (answer, correct) => answer === correct
 
-  controlQuestions = (index) => {
+  checkAnswer = (correct, questionIndex) => {
+    // const result = this.checkCorrect(answer, correct);
+    // console.log(questionIndex);
+    this.setClassName(correct);
     const maxQuestions = 4;
-    // console.log(index);
-    if (index >= maxQuestions) {
+    if (questionIndex < maxQuestions) {
       this.setState({
-        qIndex: 0,
+        btnDisabled: false,
       });
-      this.fetchQuestion();
     } else {
-      this.setState({
-        qIndex: index + 1,
-      });
+      const { history } = this.props;
+      history.push('/feedback');
     }
   }
 
-  checkAnswer = (answer, correct, qIndex, rIndex) => {
-    const { answeredIndex } = this.state;
-    const result = this.checkCorrect(answer, correct);
-
-    if (result) {
-      const maxQuestions = 4;
-      if (qIndex < maxQuestions) this.getAnswers(qIndex + 1);
-      this.setState({
-        answeredIndex: [],
-      });
-      this.controlQuestions(qIndex);
-    } else {
-      this.setState({
-        answeredIndex: [...answeredIndex, rIndex],
-      });
-    }
+  setClassName = (correct) => {
+    const { shuffledQuestions } = this.state;
+    // const correct = this.checkCorrect(answer, correct)
+    let correctIndex;
+    shuffledQuestions.forEach((question, index) => {
+      if (question === correct) correctIndex = index;
+    });
+    this.setState({
+      stateClassName: correctIndex,
+    });
   }
+
+  getClassName = (index) => {
+    const { stateClassName } = this.state;
+    if (index === stateClassName) return 'correct-answer';
+    if (stateClassName !== '') return 'incorrect-answer';
+  }
+
+  nextQuestion = () => {
+    const { questionIndex } = this.state;
+    this.getAnswers(questionIndex + 1);
+    this.setState({
+      btnDisabled: true,
+      questionIndex: questionIndex + 1,
+      stateClassName: '',
+    });
+  }
+
+  // checkAnswer = (answer, correct, questionIndex, rIndex) => {
+  //   const { answeredIndex } = this.state;
+  //   const result = this.checkCorrect(answer, correct);
+  //   const markedAnswer = answeredIndex.includes(rIndex);
+  //   // console.log(rIndex);
+  //   // console.log(answeredIndex);
+  //   if (!markedAnswer) {
+  //     if (result) {
+  //       const maxQuestions = 4;
+  //       if (questionIndex < maxQuestions) this.getAnswers(questionIndex + 1);
+  //       this.setState({
+  //         answeredIndex: [],
+  //       });
+  //       this.controlQuestions(questionIndex);
+  //     } else {
+  //       this.setState({
+  //         answeredIndex: [...answeredIndex, rIndex],
+  //       });
+  //     }
+  //   }
+  // }
 
   render() {
     // const { questions } = this.props;
-    const { questions, qIndex, loading, shuffledQuestions } = this.state;
+    const { questions,
+      questionIndex, loading, shuffledQuestions, btnDisabled } = this.state;
     return (
       <section>
         { (questions.length > 0 && !loading)
         && (
           <div>
             <Header />
-            <h2 data-testid="question-category">{questions[qIndex].category}</h2>
-            <p data-testid="question-text">{questions[qIndex].question}</p>
+            <h2 data-testid="question-category">{questions[questionIndex].category}</h2>
+            <p data-testid="question-text">{questions[questionIndex].question}</p>
             <div data-testid="answer-options">
               { shuffledQuestions.map((answer, index) => (
                 <button
                   key={ index }
-                  className={
-                    (this.checkCorrect(answer, questions[qIndex].correct_answer))
-                      ? 'correct-answer'
-                      : 'red'
-                  }
+                  className={ this.getClassName(index) }
                   data-testid={
-                    this.checkCorrect(answer, questions[qIndex].correct_answer)
+                    this.checkCorrect(answer,
+                      questions[questionIndex].correct_answer, index)
                       ? 'correct-answer'
                       : `wrong-answer-${index}`
                   }
                   type="button"
                   onClick={
-                    () => this.checkAnswer(answer,
-                      questions[qIndex].correct_answer, qIndex, index)
+                    () => this.checkAnswer(questions[questionIndex].correct_answer,
+                      questionIndex, index)
                   }
                 >
                   { answer }
                 </button>
               ))}
+              <button
+                type="button"
+                data-testid="btn-next"
+                onClick={ this.nextQuestion }
+                disabled={ btnDisabled }
+              >
+                Next
+              </button>
             </div>
           </div>)}
       </section>
