@@ -11,8 +11,7 @@ class Game extends Component {
     this.state = {
       questions: [],
       qIndex: 0,
-      // cIndex: [],
-      // loading: false,
+      loading: false,
     };
   }
 
@@ -32,14 +31,16 @@ class Game extends Component {
   }
 
   fetchQuestion = async () => {
-    // this.setState({ loading: true });
+    this.setState({ loading: true });
     const token = localStorage.getItem('token');
     const url = `https://opentdb.com/api.php?amount=5&token=${token}`;
     const response = await fetch(url);
     const apiData = await response.json();
     this.validateToken(apiData.response_code);
-    this.setState({ questions: apiData.results });
-    // this.setState({ loading: false });
+    this.setState({
+      questions: apiData.results,
+    });
+    this.setState({ loading: false });
   }
 
   // checkGlobalState = () => {
@@ -51,7 +52,7 @@ class Game extends Component {
   //   console.log(questions);
   // }
 
-  getAnswers = () => {
+  getAnswers = (index) => {
     // https://www.horadecodar.com.br/2021/05/10/como-embaralhar-um-array-em-javascript-shuffle/
     function shuffleArray(arr) {
       for (let i = arr.length - 1; i > 0; i -= 1) {
@@ -60,43 +61,64 @@ class Game extends Component {
       }
       return arr;
     }
-
+    // console.log(this.state.index);
     const { questions } = this.state;
-    const allAnswers = questions[0].incorrect_answers;
-    allAnswers.push(questions[0].correct_answer);
+    const allAnswers = questions[index].incorrect_answers;
+    allAnswers.push(questions[index].correct_answer);
     return shuffleArray(allAnswers);
   }
 
-  checkAnswer = (answer, correct) => answer === correct
+  checkCorrect = (answer, correct) => answer === correct
+
+  controlQuestions = (index) => {
+    // const { qIndex } = this.state;
+    const maxQuestions = 4;
+    console.log(index);
+    if (index >= maxQuestions) {
+      this.setState({
+        qIndex: 0,
+      });
+      this.fetchQuestion();
+    } else {
+      this.setState({ qIndex: index + 1 });
+    }
+  }
+
+  checkAnswer = (answer, correct, index) => {
+    console.log(index);
+    const result = this.checkCorrect(answer, correct);
+    if (result) this.controlQuestions(index);
+  }
 
   render() {
     // const { questions } = this.props;
-    const { questions, qIndex } = this.state;
+    const { questions, qIndex, loading } = this.state;
     return (
       <section>
-        { questions.length > 0
+        { (questions.length > 0 && !loading)
         && (
           <div>
             <Header />
             <h2 data-testid="question-category">{questions[qIndex].category}</h2>
             <p data-testid="question-text">{questions[qIndex].question}</p>
             <div data-testid="answer-options">
-              { this.getAnswers().map((answer, index) => (
+              { this.getAnswers(qIndex).map((answer, index) => (
                 <button
                   key={ index }
                   className={
-                    (this.checkAnswer(answer, questions[qIndex].correct_answer))
+                    (this.checkCorrect(answer, questions[qIndex].correct_answer))
                       ? ''
                       : 'red'
                   }
                   data-testid={
-                    this.checkAnswer(answer, questions[qIndex].correct_answer)
+                    this.checkCorrect(answer, questions[qIndex].correct_answer)
                       ? 'correct-answer'
                       : `wrong-answer-${index}`
                   }
                   type="button"
                   onClick={
-                    () => this.checkAnswer(answer, questions[qIndex].correct_answer)
+                    () => this.checkAnswer(answer,
+                      questions[qIndex].correct_answer, qIndex)
                   }
                 >
                   { answer }
