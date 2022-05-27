@@ -58,14 +58,21 @@ class Game extends Component {
   // }
 
   getAnswers = (index) => {
-    // console.log('getAnswer', index);
     const { questions } = this.state;
-    const shuffled = questions[index].incorrect_answers;
-    shuffled.push(questions[index].correct_answer);
-    shuffled.sort();
-    this.setState({
-      shuffledQuestions: shuffled,
-    });
+    if (questions[index].type === 'multiple') {
+      const shuffled = questions[index].incorrect_answers;
+      shuffled.push(questions[index].correct_answer);
+      shuffled.sort();
+      this.setState({
+        shuffledQuestions: shuffled,
+      });
+    } else {
+      const shuffled = ['True', 'False'];
+      shuffled.sort();
+      this.setState({
+        shuffledQuestions: shuffled,
+      });
+    }
   }
 
   checkCorrect = (answer, correct) => answer === correct
@@ -74,14 +81,11 @@ class Game extends Component {
     // const result = this.checkCorrect(answer, correct);
     // console.log(questionIndex);
     this.setClassName(correct);
-    const maxQuestions = 4;
+    const maxQuestions = 5;
     if (questionIndex < maxQuestions) {
       this.setState({
         btnDisabled: false,
       });
-    } else {
-      const { history } = this.props;
-      history.push('/feedback');
     }
   }
 
@@ -105,12 +109,18 @@ class Game extends Component {
 
   nextQuestion = () => {
     const { questionIndex } = this.state;
-    this.getAnswers(questionIndex + 1);
-    this.setState({
-      btnDisabled: true,
-      questionIndex: questionIndex + 1,
-      stateClassName: '',
-    });
+    const maxQuestions = 4;
+    if (questionIndex < maxQuestions) {
+      this.getAnswers(questionIndex + 1);
+      this.setState({
+        btnDisabled: true,
+        questionIndex: questionIndex + 1,
+        stateClassName: '',
+      });
+    } else {
+      const { history } = this.props;
+      history.push('/feedback');
+    }
   }
 
   // checkAnswer = (answer, correct, questionIndex, rIndex) => {
