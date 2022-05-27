@@ -1,5 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import Header from '../components/Header';
 
 class Feedback extends React.Component {
   playAgain = () => {
@@ -10,6 +11,7 @@ class Feedback extends React.Component {
   render() {
     return (
       <div>
+        <Header />
         <h1>Feedback</h1>
         <button
           type="button"
