@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import propTypes from 'prop-types';
+import propTypes, { number } from 'prop-types';
 // import { connect } from 'react-redux';
 import './Game.css';
 // import { getQuestions } from '../redux/actions/gameActions';
@@ -58,17 +58,19 @@ class Game extends Component {
   // }
 
   getAnswers = (index) => {
+    const size = 0.5;
+
     const { questions } = this.state;
     if (questions[index].type === 'multiple') {
-      const shuffled = questions[index].incorrect_answers;
-      shuffled.push(questions[index].correct_answer);
-      shuffled.sort();
+      const arr = questions[index].incorrect_answers;
+      arr.push(questions[index].correct_answer);
+      const shuffled = arr.sort(() => Math.random() - size);
       this.setState({
         shuffledQuestions: shuffled,
       });
     } else {
       const shuffled = ['True', 'False'];
-      shuffled.sort();
+      shuffled.sort(() => Math.random() - size);
       this.setState({
         shuffledQuestions: shuffled,
       });
