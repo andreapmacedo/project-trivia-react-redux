@@ -27,10 +27,10 @@ class Feedback extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  // questions: state.game.questions,
-  // currentQuestion: state.game.currentQuestion,
-});
+// const mapStateToProps = (state) => ({
+//   // questions: state.game.questions,
+//   // currentQuestion: state.game.currentQuestion,
+// });
 
 Feedback.propTypes = {
   history: propTypes.shape({
