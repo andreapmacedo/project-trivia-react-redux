@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import game from './gameReucer';
+import player from './palyerReudcer';
 
-const rootReducer = combineReducers({ game });
+const rootReducer = combineReducers({ player });
 
 export default rootReducer;
