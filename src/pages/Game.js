@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
-// import { connect } from 'react-redux';
 import './Game.css';
-// import { getQuestions } from '../redux/actions/gameActions';
 import Header from '../components/Header';
 
 class Game extends Component {
@@ -12,17 +10,26 @@ class Game extends Component {
       questions: [],
       shuffledQuestions: [],
       questionIndex: 0,
-      // answeredIndex: [],
       loading: false,
-      btnDisabled: true,
+      btnNextDisabled: true,
+      btnsAnswertDisabled: false,
       stateClassName: '',
+      seconds: 30,
+      timerOn: true,
     };
   }
 
   componentDidMount() {
-    // const { addQuestions } = this.props;
-    // addQuestions();
     this.fetchQuestion();
+    this.timerStart();
+  }
+
+  componentDidUpdate() {
+    this.timerControl();
+  }
+
+  componentWillUnmount() {
+    // clearInterval(this.intervalId);
   }
 
   validateToken = (responseCode) => {
@@ -48,15 +55,6 @@ class Game extends Component {
     this.getAnswers(0);
   }
 
-  // checkGlobalState = () => {
-  //   const { questions } = this.props;
-  // }
-
-  // checkLocalState = () => {
-  //   const { questions } = this.state;
-  //   console.log(questions);
-  // }
-
   getAnswers = (index) => {
     const size = 0.5;
 
@@ -80,20 +78,17 @@ class Game extends Component {
   checkCorrect = (answer, correct) => answer === correct
 
   checkAnswer = (correct, questionIndex) => {
-    // const result = this.checkCorrect(answer, correct);
-    // console.log(questionIndex);
     this.setClassName(correct);
     const maxQuestions = 5;
     if (questionIndex < maxQuestions) {
       this.setState({
-        btnDisabled: false,
+        btnNextDisabled: false,
       });
     }
   }
 
   setClassName = (correct) => {
     const { shuffledQuestions } = this.state;
-    // const correct = this.checkCorrect(answer, correct)
     let correctIndex;
     shuffledQuestions.forEach((question, index) => {
       if (question === correct) correctIndex = index;
@@ -115,42 +110,44 @@ class Game extends Component {
     if (questionIndex < maxQuestions) {
       this.getAnswers(questionIndex + 1);
       this.setState({
-        btnDisabled: true,
+        btnNextDisabled: true,
         questionIndex: questionIndex + 1,
         stateClassName: '',
+        timerOn: true,
+        seconds: 30,
+        btnsAnswertDisabled: false,
       });
+      this.timerStart();
     } else {
       const { history } = this.props;
       history.push('/feedback');
     }
   }
 
-  // checkAnswer = (answer, correct, questionIndex, rIndex) => {
-  //   const { answeredIndex } = this.state;
-  //   const result = this.checkCorrect(answer, correct);
-  //   const markedAnswer = answeredIndex.includes(rIndex);
-  //   // console.log(rIndex);
-  //   // console.log(answeredIndex);
-  //   if (!markedAnswer) {
-  //     if (result) {
-  //       const maxQuestions = 4;
-  //       if (questionIndex < maxQuestions) this.getAnswers(questionIndex + 1);
-  //       this.setState({
-  //         answeredIndex: [],
-  //       });
-  //       this.controlQuestions(questionIndex);
-  //     } else {
-  //       this.setState({
-  //         answeredIndex: [...answeredIndex, rIndex],
-  //       });
-  //     }
-  //   }
-  // }
+  timerStart() {
+    const ONE_SECOND = 1000;
+    this.intervalId = setInterval(() => {
+      this.setState((prevState) => ({ seconds: prevState.seconds - 1 }));
+    }, ONE_SECOND);
+  }
+
+  timerControl() {
+    const TIME_LIMIT = 0;
+    const { seconds, timerOn } = this.state;
+    if (seconds <= TIME_LIMIT && timerOn) {
+      console.log('timeControl');
+      clearInterval(this.intervalId);
+      this.setState({ btnsAnswertDisabled: true,
+        timerOn: false,
+        btnNextDisabled: false,
+      });
+    }
+  }
 
   render() {
-    // const { questions } = this.props;
     const { questions,
-      questionIndex, loading, shuffledQuestions, btnDisabled } = this.state;
+      questionIndex, loading, shuffledQuestions,
+      btnNextDisabled, seconds, btnsAnswertDisabled } = this.state;
     return (
       <section>
         { (questions.length > 0 && !loading)
@@ -159,6 +156,7 @@ class Game extends Component {
             <Header />
             <h2 data-testid="question-category">{questions[questionIndex].category}</h2>
             <p data-testid="question-text">{questions[questionIndex].question}</p>
+            <h2>{seconds}</h2>
             <div data-testid="answer-options">
               { shuffledQuestions.map((answer, index) => (
                 <button
@@ -175,18 +173,22 @@ class Game extends Component {
                     () => this.checkAnswer(questions[questionIndex].correct_answer,
                       questionIndex, index)
                   }
+                  disabled={ btnsAnswertDisabled }
                 >
                   { answer }
                 </button>
               ))}
-              <button
-                type="button"
-                data-testid="btn-next"
-                onClick={ this.nextQuestion }
-                disabled={ btnDisabled }
-              >
-                Next
-              </button>
+              {!btnNextDisabled
+              && (
+                <button
+                  type="button"
+                  data-testid="btn-next"
+                  onClick={ this.nextQuestion }
+                  disabled={ btnNextDisabled }
+                >
+                  Next
+                </button>
+              )}
             </div>
           </div>)}
       </section>
@@ -194,28 +196,10 @@ class Game extends Component {
   }
 }
 
-// const mapDispatchToProps = (dispatch) => ({
-//   // addQuestions: () => {
-//   //   dispatch(getQuestions());
-//   // },
-//   // addQuestions: () => {
-//   //   dispatch(getQuestion());
-//   // },
-// });
-
-// const mapStateToProps = (state) => ({
-//   // questions: state.game.questions,
-//   // currentQuestion: state.game.currentQuestion,
-// });
-
 Game.propTypes = {
   history: propTypes.shape({
     push: propTypes.func,
   }).isRequired,
-  // addQuestions: propTypes.func.isRequired,
-  // questions: propTypes.arrayOf.isRequired,
-  // currentQuestion: propTypes.arrayOf.isRequired,
 };
 
 export default Game;
-// export default connect(mapStateToProps, mapDispatchToProps)(Game);
