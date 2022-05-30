@@ -1,5 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Header from '../components/Header';
 
 class Feedback extends React.Component {
@@ -26,10 +27,16 @@ class Feedback extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  // questions: state.game.questions,
+  // currentQuestion: state.game.currentQuestion,
+});
+
 Feedback.propTypes = {
   history: propTypes.shape({
     push: propTypes.func,
   }).isRequired,
 };
 
-export default Feedback;
+// export default Feedback;
+export default connect(mapStateToProps)(Feedback);

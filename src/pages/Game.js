@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
-// import { connect } from 'react-redux';
 import './Game.css';
 import Header from '../components/Header';
 
@@ -17,13 +16,10 @@ class Game extends Component {
       stateClassName: '',
       seconds: 30,
       timerOn: true,
-      // countID: 0,
     };
   }
 
   componentDidMount() {
-    // const { addQuestions } = this.props;
-    // addQuestions();
     this.fetchQuestion();
     this.timerStart();
   }
@@ -58,15 +54,6 @@ class Game extends Component {
     this.setState({ loading: false });
     this.getAnswers(0);
   }
-
-  // checkGlobalState = () => {
-  //   const { questions } = this.props;
-  // }
-
-  // checkLocalState = () => {
-  //   const { questions } = this.state;
-  //   console.log(questions);
-  // }
 
   getAnswers = (index) => {
     const size = 0.5;
@@ -148,8 +135,8 @@ class Game extends Component {
     const TIME_LIMIT = 0;
     const { seconds, timerOn } = this.state;
     if (seconds <= TIME_LIMIT && timerOn) {
+      console.log('timeControl');
       clearInterval(this.intervalId);
-      console.log('teste');
       this.setState({ btnsAnswertDisabled: true,
         timerOn: false,
         btnNextDisabled: false,
@@ -158,7 +145,6 @@ class Game extends Component {
   }
 
   render() {
-    // const { questions } = this.props;
     const { questions,
       questionIndex, loading, shuffledQuestions,
       btnNextDisabled, seconds, btnsAnswertDisabled } = this.state;
@@ -210,28 +196,10 @@ class Game extends Component {
   }
 }
 
-// const mapDispatchToProps = (dispatch) => ({
-//   // addQuestions: () => {
-//   //   dispatch(getQuestions());
-//   // },
-//   // addQuestions: () => {
-//   //   dispatch(getQuestion());
-//   // },
-// });
-
-// const mapStateToProps = (state) => ({
-//   // questions: state.game.questions,
-//   // currentQuestion: state.game.currentQuestion,
-// });
-
 Game.propTypes = {
   history: propTypes.shape({
     push: propTypes.func,
   }).isRequired,
-  // addQuestions: propTypes.func.isRequired,
-  // questions: propTypes.arrayOf.isRequired,
-  // currentQuestion: propTypes.arrayOf.isRequired,
 };
 
 export default Game;
-// export default connect(mapStateToProps, mapDispatchToProps)(Game);
