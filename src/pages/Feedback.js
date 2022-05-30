@@ -5,6 +5,7 @@ import Header from '../components/Header';
 class Feedback extends React.Component {
   playAgain = () => {
     const { history } = this.props;
+    localStorage.setItem('token', '');
     history.push('/');
   }
 

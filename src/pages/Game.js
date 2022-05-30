@@ -193,14 +193,17 @@ class Game extends Component {
                   { answer }
                 </button>
               ))}
-              <button
-                type="button"
-                data-testid="btn-next"
-                onClick={ this.nextQuestion }
-                disabled={ btnNextDisabled }
-              >
-                Next
-              </button>
+              {!btnNextDisabled
+              && (
+                <button
+                  type="button"
+                  data-testid="btn-next"
+                  onClick={ this.nextQuestion }
+                  disabled={ btnNextDisabled }
+                >
+                  Next
+                </button>
+              )}
             </div>
           </div>)}
       </section>
