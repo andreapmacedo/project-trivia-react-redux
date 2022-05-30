@@ -79,6 +79,7 @@ class Game extends Component {
 
   checkAnswer = (correct, questionIndex) => {
     this.setClassName(correct);
+    clearInterval(this.intervalId);
     const maxQuestions = 5;
     if (questionIndex < maxQuestions) {
       this.setState({
