@@ -136,7 +136,7 @@ class Game extends Component {
     const TIME_LIMIT = 0;
     const { seconds, timerOn } = this.state;
     if (seconds <= TIME_LIMIT && timerOn) {
-      console.log('timeControl');
+      // console.log('timeControl');
       clearInterval(this.intervalId);
       this.setState({ btnsAnswertDisabled: true,
         timerOn: false,
