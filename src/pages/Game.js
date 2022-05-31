@@ -57,11 +57,11 @@ class Game extends Component {
 
   getAnswers = (index) => {
     const size = 0.5;
-
+    console.log('teste');
     const { questions } = this.state;
     if (questions[index].type === 'multiple') {
-      const arr = questions[index].incorrect_answers;
-      arr.push(questions[index].correct_answer);
+      const arr = questions[index].incorrect_answers
+        .concat(questions[index].correct_answer);
       const shuffled = arr.sort(() => Math.random() - size);
       this.setState({
         shuffledQuestions: shuffled,
@@ -129,6 +129,7 @@ class Game extends Component {
     const ONE_SECOND = 1000;
     this.intervalId = setInterval(() => {
       this.setState((prevState) => ({ seconds: prevState.seconds - 1 }));
+      // dispatch(timeSeconds());
     }, ONE_SECOND);
   }
 
@@ -136,7 +137,6 @@ class Game extends Component {
     const TIME_LIMIT = 0;
     const { seconds, timerOn } = this.state;
     if (seconds <= TIME_LIMIT && timerOn) {
-      console.log('timeControl');
       clearInterval(this.intervalId);
       this.setState({ btnsAnswertDisabled: true,
         timerOn: false,
@@ -165,14 +165,14 @@ class Game extends Component {
                   className={ this.getClassName(index) }
                   data-testid={
                     this.checkCorrect(answer,
-                      questions[questionIndex].correct_answer, index)
+                      questions[questionIndex].correct_answer)
                       ? 'correct-answer'
                       : `wrong-answer-${index}`
                   }
                   type="button"
                   onClick={
                     () => this.checkAnswer(questions[questionIndex].correct_answer,
-                      questionIndex, index)
+                      questionIndex)
                   }
                   disabled={ btnsAnswertDisabled }
                 >
