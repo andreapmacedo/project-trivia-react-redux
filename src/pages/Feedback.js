@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Header from '../components/Header';
 
 class Feedback extends Component {
   constructor() {
@@ -9,30 +10,33 @@ class Feedback extends Component {
   }
 
   performanceFeedback() {
-    const { points } = this.props;
+    const { score } = this.props;
     const numberOfhits = 3;
-    if (points < numberOfhits) return 'Well Done!';
+    if (score < numberOfhits) return 'Well Done!';
     return 'Could be better...';
   }
 
   render() {
     return (
-      <main>
-        <h2 data-testid="feedback-text">
-          { this.performanceFeedback() }
-        </h2>
-      </main>
+      <>
+        <Header />
+        <main>
+          <h2 data-testid="feedback-text">
+            {this.performanceFeedback()}
+          </h2>
+        </main>
+
+      </>
     );
   }
 }
 
 Feedback.propTypes = {
-  points: PropTypes.number.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
-/** Atualize comforme o nome da chave no state */
 const mapStateToProps = (state) => ({
-  points: state.rootReducer.points,
+  score: state.player.score,
 });
 
 export default connect(mapStateToProps)(Feedback);
