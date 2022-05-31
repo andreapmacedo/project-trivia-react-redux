@@ -52,10 +52,9 @@ describe('Testes dos botões', () => {
     userEvent.type(inputName, test);
     userEvent.type(inputEmail, email);
     userEvent.click(btn);
-    
-    const h1 = await screen.findByRole('heading', { name: /Let Play/i });
-    expect(h1).toBeInTheDocument();
-    expect(await history.location.pathname).toBe('/game');
+    setTimeout(() => {
+      expect(history.location.pathname).toBe('/game');
+    }, 1000)
   })
   test('Testa se a rota ao selecionar os botões está correta', async () => {
     const { history } = renderWithRouter(<App />);

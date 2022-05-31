@@ -13,6 +13,7 @@ class Header extends React.Component {
       <header
         className="cabecalho"
       >
+        <h1>Good Game</h1>
         <img
           src={ `https://www.gravatar.com/avatar/${hash}` }
           alt="Imagem do usuário"
