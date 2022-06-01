@@ -7,6 +7,13 @@ class Feedback extends Component {
   constructor() {
     super();
     this.performanceFeedback = this.performanceFeedback.bind(this);
+    this.playAgain = this.playAgain.bind(this);
+  }
+
+  playAgain() {
+    const { history } = this.props;
+    localStorage.setItem('token', '');
+    history.push('/');
   }
 
   performanceFeedback() {
@@ -16,21 +23,13 @@ class Feedback extends Component {
     return 'Could be better...';
   }
 
-  playAgain = () => {
-    const { history } = this.props;
-    localStorage.setItem('token', '');
-    history.push('/');
-  }
-
   render() {
     return (
       <>
         <Header />
         <main>
           <h1>Feedback</h1>
-          <h2 data-testid="feedback-text">
-            {this.performanceFeedback()}
-          </h2>
+          <h2 data-testid="feedback-text">{this.performanceFeedback()}</h2>
           <button
             type="button"
             data-testid="btn-play-again"
