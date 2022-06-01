@@ -10,9 +10,9 @@ class Feedback extends Component {
   }
 
   performanceFeedback() {
-    const { score } = this.props;
+    const { assertions } = this.props;
     const numberOfhits = 3;
-    if (score < numberOfhits) return 'Well Done!';
+    if (assertions < numberOfhits) return 'Well Done!';
     return 'Could be better...';
   }
 
@@ -32,11 +32,11 @@ class Feedback extends Component {
 }
 
 Feedback.propTypes = {
-  score: PropTypes.number.isRequired,
+  assertions: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  score: state.player.score,
+  assertions: state.player.assertions,
 });
 
 export default connect(mapStateToProps)(Feedback);
