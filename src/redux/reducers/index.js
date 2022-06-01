@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
+import player from './palyerReudcer';
 
-const rootReducer = combineReducers((state) => state);
+const rootReducer = combineReducers({ player });
 
 export default rootReducer;

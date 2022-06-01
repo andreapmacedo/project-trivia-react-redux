@@ -16,24 +16,40 @@ class Feedback extends Component {
     return 'Could be better...';
   }
 
+  playAgain = () => {
+    const { history } = this.props;
+    localStorage.setItem('token', '');
+    history.push('/');
+  }
+
   render() {
     return (
       <>
         <Header />
         <main>
+          <h1>Feedback</h1>
           <h2 data-testid="feedback-text">
             {this.performanceFeedback()}
           </h2>
+          <button
+            type="button"
+            data-testid="btn-play-again"
+            onClick={ this.playAgain }
+          >
+            Play Again
+          </button>
         </main>
-
       </>
     );
   }
 }
 
 Feedback.propTypes = {
-  assertions: PropTypes.number.isRequired,
-};
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+  assertions: PropTypes.number,
+}.isRequired;
 
 const mapStateToProps = (state) => ({
   assertions: state.player.assertions,
