@@ -1,17 +1,11 @@
 import md5 from 'crypto-js/md5';
 import React from 'react';
+import propTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 class Header extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      score: 0,
-    };
-  }
-
   render() {
-    const { score } = this.state;
+    const { score } = this.props;
 
     const user = window.localStorage.getItem('name');
     const hash = md5(`${window.localStorage.getItem('email')}`).toString();
@@ -19,6 +13,7 @@ class Header extends React.Component {
       <header
         className="cabecalho"
       >
+        <h1>Good Game</h1>
         <img
           src={ `https://www.gravatar.com/avatar/${hash}` }
           alt="Imagem do usuário"
@@ -35,7 +30,7 @@ class Header extends React.Component {
           data-testid="header-score"
 
         >
-          Pontos:
+          Score:
           {' '}
           { score }
         </p>
@@ -44,4 +39,12 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+Header.propTypes = {
+  score: propTypes.number.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  score: state.player.score,
+});
+
+export default connect(mapStateToProps)(Header);

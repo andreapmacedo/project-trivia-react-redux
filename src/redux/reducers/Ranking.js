@@ -1,10 +1,10 @@
 const INITIAL_STATE = {
-  timeSeconds: 30,
+  playerRanking: [],
 };
 
-const gameReducer = (state = INITIAL_STATE, action) => {
+const ranking = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case 'TIMER':
+  case 'ADD_TO_RANKING':
     return {
       ...state,
       timeSeconds: action.payload,
@@ -14,4 +14,4 @@ const gameReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default gameReducer;
+export default ranking;
