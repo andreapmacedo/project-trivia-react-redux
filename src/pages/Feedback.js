@@ -19,7 +19,7 @@ class Feedback extends Component {
   performanceFeedback() {
     const { assertions } = this.props;
     const numberOfhits = 3;
-    if (assertions < numberOfhits) return 'Well Done!';
+    if (assertions > numberOfhits) return 'Well Done!';
     return 'Could be better...';
   }
 
