@@ -74,7 +74,6 @@ class Game extends Component {
     const url = `https://opentdb.com/api.php?amount=5&token=${token}`;
     const response = await fetch(url);
     const apiData = await response.json();
-    console.log(apiData);
     this.validateToken(apiData.response_code);
     this.setState({
       questions: apiData.results,

@@ -45,24 +45,22 @@ describe('Testes dos botões', () => {
     const { history } = renderWithRouter(<App />);
     const inputName = screen.getByTestId(INPUT_NAME);
     const inputEmail = screen.getByTestId(INPUT_EMAIL);
-    const test = 'text';
-    const email = 'email@email.com';
+    const nameInput = 'text';
+    const emailInput = 'email@email.com';
     const btn = screen.getByTestId('btn-play');
 
-    userEvent.type(inputName, test);
-    userEvent.type(inputEmail, email);
+    userEvent.type(inputName, nameInput);
+    userEvent.type(inputEmail, emailInput);
     userEvent.click(btn);
     setTimeout(() => {
       expect(history.location.pathname).toBe('/game');
-    }, 1000)
+    }, 500);
   })
   test('Testa se a rota ao selecionar os botões está correta', async () => {
     const { history } = renderWithRouter(<App />);
     const btn = screen.getByTestId('btn-settings');
 
     userEvent.click(btn);
-
     expect(history.location.pathname).toBe('/settings');
   })
-
 })
