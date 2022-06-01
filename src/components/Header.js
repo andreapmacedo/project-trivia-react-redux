@@ -24,14 +24,12 @@ class Header extends React.Component {
           {' '}
           { name }
         </p>
-        <p
+        <span>Score:</span>
+        <span
           data-testid="header-score"
-
         >
-          Score:
-          {' '}
           { score }
-        </p>
+        </span>
       </header>
     );
   }
