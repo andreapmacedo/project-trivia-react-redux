@@ -8,8 +8,7 @@ import { scoreUpdate } from '../redux/actions/playerActions';
 class Game extends Component {
   constructor() {
     super();
-    this.state = {
-      questions: [],
+    this.state = { questions: [],
       shuffledAnswers: [],
       questionIndex: 0,
       loading: false,
@@ -130,6 +129,16 @@ class Game extends Component {
     if (stateClassName !== '') return 'incorrect-answer';
   }
 
+  setPlayerScore = () => {
+    const { player } = this.props;
+    if (JSON.parse(localStorage.getItem('ranking'))) {
+      const ranking = JSON.parse(localStorage.getItem('ranking'));
+      localStorage.setItem('ranking', JSON.stringify([...ranking, player]));
+    } else {
+      localStorage.setItem('ranking', JSON.stringify([player]));
+    }
+  };
+
   nextQuestion = () => {
     const { questionIndex } = this.state;
     const maxQuestions = 4;
@@ -144,6 +153,7 @@ class Game extends Component {
       });
       this.timerStart();
     } else {
+      this.setPlayerScore();
       const { history } = this.props;
       history.push('/feedback');
     }
@@ -225,10 +235,15 @@ Game.propTypes = {
     push: propTypes.func,
   }).isRequired,
   updateScore: propTypes.func.isRequired,
+  player: propTypes.objectOf.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  player: state.player,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   updateScore: ({ score, assertions }) => dispatch(scoreUpdate({ score, assertions })),
 });
 
-export default connect(null, mapDispatchToProps)(Game);
+export default connect(mapStateToProps, mapDispatchToProps)(Game);

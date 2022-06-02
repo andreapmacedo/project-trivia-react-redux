@@ -1,24 +1,56 @@
-
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import propTypes from 'prop-types';
 
 class Ranking extends Component {
-  render() {
-    return (
-      <>
-        <h1 data-testid="ranking-title">Ranking</h1>
-        <Link to="/">
-          <button
-            type="button"
-            data-testid="btn-go-home"
+  constructor() {
+    super();
+    this.state = {
+      ranking: [],
+    };
+  }
 
-          >
-            Início
-          </button>
-        </Link>
-      </>
+  componentDidMount() {
+    if (JSON.parse(localStorage.getItem('ranking'))) {
+      const ranking = JSON.parse(localStorage.getItem('ranking'));
+      this.setState({
+        ranking: ranking.sort((a, b) => b.score - a.score),
+      });
+    }
+  }
+
+  goHome = () => {
+    const { history } = this.props;
+    history.push('/');
+  }
+
+  render() {
+    const { ranking } = this.state;
+    return (
+      <div>
+        <h1 data-testid="ranking-title">Ranking</h1>
+        <button
+          type="button"
+          data-testid="btn-go-home"
+          onClick={ this.goHome }
+        >
+          Home
+        </button>
+        {ranking.map((player, index) => (
+          <div key={ index }>
+            <img src={ player.picture } alt={ player.name } />
+            <h3 data-testid={ `player-name-${index}` }>{ player.name }</h3>
+            <h4 data-testid={ `player-score-${index}` }>{ player.score }</h4>
+          </div>
+        ))}
+      </div>
     );
   }
 }
 
-export default Ranking;
+Ranking.propTypes = {
+  history: propTypes.shape({
+    push: propTypes.func.isRequired,
+  }).isRequired,
+};
+
+export default (Ranking);
