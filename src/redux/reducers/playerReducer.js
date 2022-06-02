@@ -21,9 +21,7 @@ const playerReducer = (state = INITIAL_STATE, action) => {
     };
   case 'SCORE_RESET':
     return {
-      ...state,
-      score: 0,
-      assertions: 0,
+      ...INITIAL_STATE,
     };
   default:
     return state;

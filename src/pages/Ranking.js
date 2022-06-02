@@ -1,7 +1,8 @@
+
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-class Settings extends Component {
+class Ranking extends Component {
   render() {
     return (
       <>
@@ -20,4 +21,4 @@ class Settings extends Component {
   }
 }
 
-export default Settings;
+export default Ranking;

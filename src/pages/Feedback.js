@@ -3,16 +3,26 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
+import { scoreReset } from '../redux/actions/playerActions';
+import addToRanking from '../redux/actions/rankingActions';
 
 class Feedback extends Component {
   constructor() {
     super();
+
     this.performanceFeedback = this.performanceFeedback.bind(this);
     this.playAgain = this.playAgain.bind(this);
   }
 
   playAgain() {
-    const { history } = this.props;
+    const { history, name, email, score, resetScore, addRanking } = this.props;
+    const newPlayer = {
+      name,
+      picture: email,
+      score,
+    };
+    addRanking(newPlayer);
+    resetScore();
     localStorage.setItem('token', '');
     history.push('/');
   }
@@ -57,16 +67,28 @@ class Feedback extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  name: state.player.name,
+  email: state.player.gravatarEmail,
+  score: state.player.score,
+  assertions: state.player.assertions,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  resetScore: () => dispatch(scoreReset()),
+  addRanking: (objPlayer) => dispatch(addToRanking(objPlayer)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Feedback);
+
 Feedback.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }),
   assertions: PropTypes.number,
+  name: PropTypes.string,
+  score: PropTypes.number,
+  email: PropTypes.string,
+  resetScore: PropTypes.func,
+  addToRanking: PropTypes.func,
 }.isRequired;
-
-const mapStateToProps = (state) => ({
-  score: state.player.score,
-  assertions: state.player.assertions,
-});
-
-export default connect(mapStateToProps)(Feedback);
