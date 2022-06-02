@@ -4,10 +4,10 @@ const INITIAL_STATE = {
 
 const ranking = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case 'ADD_TO_RANKING':
+  case 'ADD_RANKING':
     return {
       ...state,
-      timeSeconds: action.payload,
+      playerRanking: [...state.playerRanking, action.payload],
     };
   default:
     return state;
