@@ -12,6 +12,7 @@ class Ranking extends Component {
   componentDidMount() {
     if (JSON.parse(localStorage.getItem('ranking'))) {
       const ranking = JSON.parse(localStorage.getItem('ranking'));
+      // const sortedName = ranking.sort((a, b) => b.name - a.name);
       this.setState({
         ranking: ranking.sort((a, b) => b.score - a.score),
       });

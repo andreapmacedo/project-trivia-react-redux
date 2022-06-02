@@ -94,9 +94,7 @@ class Game extends Component {
     } else {
       const shuffled = ['True', 'False'];
       shuffled.sort(() => Math.random() - size);
-      this.setState({
-        shuffledAnswers: shuffled,
-      });
+      this.setState({ shuffledAnswers: shuffled });
     }
   }
 
@@ -129,13 +127,14 @@ class Game extends Component {
     if (stateClassName !== '') return 'incorrect-answer';
   }
 
-  setPlayerScore = () => {
-    const { player } = this.props;
+  setPlayerRank = () => {
+    const { player: { name, score, picture } } = this.props;
+    const playerInfo = { name, score, picture };
     if (JSON.parse(localStorage.getItem('ranking'))) {
       const ranking = JSON.parse(localStorage.getItem('ranking'));
-      localStorage.setItem('ranking', JSON.stringify([...ranking, player]));
+      localStorage.setItem('ranking', JSON.stringify([...ranking, playerInfo]));
     } else {
-      localStorage.setItem('ranking', JSON.stringify([player]));
+      localStorage.setItem('ranking', JSON.stringify([playerInfo]));
     }
   };
 
@@ -153,7 +152,7 @@ class Game extends Component {
       });
       this.timerStart();
     } else {
-      this.setPlayerScore();
+      this.setPlayerRank();
       const { history } = this.props;
       history.push('/feedback');
     }
