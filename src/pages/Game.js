@@ -102,6 +102,7 @@ class Game extends Component {
 
   checkAnswer = (correct, questionIndex, answer) => {
     this.setClassName(correct);
+    this.setState({ btnsAnswertDisabled: true });
     this.calcScore(this.checkCorrect(answer, correct));
     clearInterval(this.intervalId);
     const maxQuestions = 5;
