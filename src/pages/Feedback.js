@@ -35,8 +35,7 @@ class Feedback extends Component {
   }
 
   render() {
-    const { assertions, score } = this.props;
-
+    const { assertions, score, resetScore } = this.props;
     return (
       <>
         <Header />
@@ -56,6 +55,7 @@ class Feedback extends Component {
             <button
               type="button"
               data-testid="btn-ranking"
+              onClick={ resetScore }
             >
               Ranking
             </button>
