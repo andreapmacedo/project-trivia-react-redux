@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
+import './Ranking.css';
 
 class Ranking extends Component {
   constructor() {
@@ -18,7 +19,7 @@ class Ranking extends Component {
     }
   }
 
-  goHome = () => {
+  goToHome = () => {
     const { history } = this.props;
     history.push('/');
   }
@@ -26,22 +27,31 @@ class Ranking extends Component {
   render() {
     const { ranking } = this.state;
     return (
-      <div>
-        <h1 data-testid="ranking-title">Ranking</h1>
-        <button
-          type="button"
-          data-testid="btn-go-home"
-          onClick={ this.goHome }
-        >
-          Home
-        </button>
-        {ranking.map((player, index) => (
-          <div key={ index }>
-            <img src={ player.picture } alt={ player.name } />
-            <h3 data-testid={ `player-name-${index}` }>{ player.name }</h3>
-            <h4 data-testid={ `player-score-${index}` }>{ player.score }</h4>
-          </div>
-        ))}
+      <div className="ranking-container">
+        <div className="main-container">
+          <h1 data-testid="ranking-title">Ranking</h1>
+          <button
+            type="button"
+            data-testid="btn-go-home"
+            onClick={ this.goToHome }
+          >
+            Home
+          </button>
+          {ranking.map((player, index) => (
+            <div
+              className="player-container"
+              key={ index }
+            >
+              <div className="player-img">
+                <img src={ player.picture } alt={ player.name } />
+              </div>
+              <div className="player-score">
+                <p data-testid={ `player-name-${index}` }>{ player.name }</p>
+                <p data-testid={ `player-score-${index}` }>{ player.score }</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }

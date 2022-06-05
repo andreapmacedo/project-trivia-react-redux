@@ -199,40 +199,40 @@ class Game extends Component {
             <div className="question-container">
               <h3>Question</h3>
               <p data-testid="question-text">{questions[questionIndex].question}</p>
-            </div>
-            <div data-testid="answer-options" className="answers-container">
-              { shuffledAnswers.map((answer, index) => (
-                <button
-                  key={ index }
-                  className={ this.getClassName(index) }
-                  data-testid={
-                    this.checkCorrect(answer,
-                      questions[questionIndex].correct_answer)
-                      ? 'correct-answer'
-                      : `wrong-answer-${index}`
-                  }
-                  type="button"
-                  onClick={
-                    () => this.checkAnswer(questions[questionIndex].correct_answer,
-                      questionIndex, answer)
-                  }
-                  disabled={ btnsAnswertDisabled }
-                >
-                  { answer }
-                </button>
-              ))}
-              {!btnNextDisabled
-                ? (
+              <div data-testid="answer-options" className="answers-container">
+                { shuffledAnswers.map((answer, index) => (
                   <button
-                    className="btn-next"
+                    key={ index }
+                    className={ this.getClassName(index) }
+                    data-testid={
+                      this.checkCorrect(answer,
+                        questions[questionIndex].correct_answer)
+                        ? 'correct-answer'
+                        : `wrong-answer-${index}`
+                    }
                     type="button"
-                    data-testid="btn-next"
-                    onClick={ this.nextQuestion }
-                    disabled={ btnNextDisabled }
+                    onClick={
+                      () => this.checkAnswer(questions[questionIndex].correct_answer,
+                        questionIndex, answer)
+                    }
+                    disabled={ btnsAnswertDisabled }
                   >
-                    Next
-                  </button>)
-                : (<h2>{seconds}</h2>)}
+                    { answer }
+                  </button>
+                ))}
+                {!btnNextDisabled
+                  ? (
+                    <button
+                      className="btn-next"
+                      type="button"
+                      data-testid="btn-next"
+                      onClick={ this.nextQuestion }
+                      disabled={ btnNextDisabled }
+                    >
+                      Next
+                    </button>)
+                  : (<h2>{seconds}</h2>)}
+              </div>
             </div>
           </div>)}
       </section>

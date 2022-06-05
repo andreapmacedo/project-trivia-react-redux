@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Andada+Pro&family=Kdam+Thmor+Pro&family=Oswald:wght@200;300;400;500;600&display=swap');
+
+* {
+  margin: 0;
+}
+
+.header-img {
+  margin: 20px 0;
+}
+
+/* .score {
+} */
+
+.score-number {
+  color: rgb(84, 84, 84);
+}
+
+.player-name {
+  color: rgb(84, 84, 84);
+}
+
+.header {
+  align-items: center;
+  background-color: rgb(237, 237, 237);
+  border: 3px solid rgb(84, 84, 84);
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px 2px rgb(131, 126, 126);
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.header-content {
+  color: #0d6efd;
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-around;
+  width: 400px;
+}
+
+.header-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 20px 0;
+  width: 200px;
+}
+
+.header .title {
+  color: red;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  width: 400px;
+}

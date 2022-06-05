@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { scoreReset } from '../redux/actions/playerActions';
 import addToRanking from '../redux/actions/rankingActions';
+import './Feedback.css';
 
 class Feedback extends Component {
   constructor() {
@@ -37,10 +38,10 @@ class Feedback extends Component {
   render() {
     const { assertions, score, resetScore } = this.props;
     return (
-      <>
-        <Header />
-        <main>
-          <h1>Feedback</h1>
+      <section className="feedback-container">
+        <div className="main-container">
+          <Header />
+          {/* <h1>Feedback</h1> */}
           <h2 data-testid="feedback-text">{this.performanceFeedback()}</h2>
           <p data-testid="feedback-total-score">{score}</p>
           <p data-testid="feedback-total-question" id="assertions">{assertions}</p>
@@ -60,8 +61,8 @@ class Feedback extends Component {
               Ranking
             </button>
           </Link>
-        </main>
-      </>
+        </div>
+      </section>
     );
   }
 }
