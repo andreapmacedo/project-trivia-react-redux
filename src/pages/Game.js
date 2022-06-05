@@ -102,7 +102,7 @@ class Game extends Component {
 
   checkAnswer = (correct, questionIndex, answer) => {
     this.setState({ btnsAnswertDisabled: true });
-    this.setClassName(correct);
+    this.setClassName();
     this.calcScore(this.checkCorrect(answer, correct));
     clearInterval(this.intervalId);
     const maxQuestions = 5;
@@ -113,11 +113,13 @@ class Game extends Component {
     }
   }
 
-  setClassName = (correct) => {
-    const { shuffledAnswers } = this.state;
+  setClassName = () => {
+    const { shuffledAnswers, questions, questionIndex } = this.state;
+    // console.log(questions[questionIndex].correct_answer);
+    const correctAnswer = questions[questionIndex].correct_answer;
     let correctIndex;
     shuffledAnswers.forEach((question, index) => {
-      if (question === correct) correctIndex = index;
+      if (question === correctAnswer) correctIndex = index;
     });
     this.setState({ stateClassName: correctIndex });
   }
@@ -171,6 +173,7 @@ class Game extends Component {
     const TIME_LIMIT = 0;
     const { seconds, timerOn } = this.state;
     if (seconds <= TIME_LIMIT && timerOn) {
+      this.setClassName();
       clearInterval(this.intervalId);
       this.setState({ btnsAnswertDisabled: true,
         timerOn: false,
@@ -189,15 +192,14 @@ class Game extends Component {
         && (
           <div className="main-container">
             <Header />
-            <div className="categoty-container cq">
-              <p>Category:</p>
-              <h3 data-testid="question-category">{questions[questionIndex].category}</h3>
+            <div className="categoty-container">
+              <h3>Category</h3>
+              <p data-testid="question-category">{questions[questionIndex].category}</p>
             </div>
-            <div className="question-container cq">
-              <p>Question:</p>
-              <h3 data-testid="question-text">{questions[questionIndex].question}</h3>
+            <div className="question-container">
+              <h3>Question</h3>
+              <p data-testid="question-text">{questions[questionIndex].question}</p>
             </div>
-            <h2>{seconds}</h2>
             <div data-testid="answer-options" className="answers-container">
               { shuffledAnswers.map((answer, index) => (
                 <button
@@ -220,17 +222,17 @@ class Game extends Component {
                 </button>
               ))}
               {!btnNextDisabled
-              && (
-                <button
-                  className="btn-next"
-                  type="button"
-                  data-testid="btn-next"
-                  onClick={ this.nextQuestion }
-                  disabled={ btnNextDisabled }
-                >
-                  Next
-                </button>
-              )}
+                ? (
+                  <button
+                    className="btn-next"
+                    type="button"
+                    data-testid="btn-next"
+                    onClick={ this.nextQuestion }
+                    disabled={ btnNextDisabled }
+                  >
+                    Next
+                  </button>)
+                : (<h2>{seconds}</h2>)}
             </div>
           </div>)}
       </section>

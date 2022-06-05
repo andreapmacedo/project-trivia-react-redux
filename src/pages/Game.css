@@ -25,10 +25,11 @@
   width: 500px;
 }
 
-.cabecalho {
+.header {
   align-items: center;
   background-color: rgb(237, 237, 237);
-  border: 2px solid rgb(170, 168, 168);
+  border: 2px solid black;
+  /* border: 2px solid rgb(170, 168, 168); */
   border-radius: 5px;
   box-shadow: 1px 1px 2px 2px rgb(131, 126, 126);
   display: flex;
@@ -36,6 +37,29 @@
   justify-content: center;
   margin-top: 10px;
   width: 400px;
+}
+
+.header .title {
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  width: 400px;
+}
+
+/* .title {
+  background-color: aqua;
+  display: flex;
+  justify-content: center;
+  width: 400px;
+} */
+
+.header .content {
+  background-color: white;
+  color: black;
+  flex-grow: 1;
+  padding: 20px;
 }
 
 .answers-container {
@@ -65,16 +89,22 @@
   width: 300px;
 }
 
+/* button:disabled {
+  background: white;
+  color: black;
+} */
+
+
 .correct-answer {
-  background-color: white;
+  background-color: green;
   border: 3px solid rgb(6, 240, 15);
-  color: green;
+  color: white;
 }
 
 .incorrect-answer {
-  background-color: white;
+  background-color: red;
   border: 3px solid red;
-  color: red;
+  color: white;
 }
 
 .Contador input {
@@ -97,8 +127,51 @@ h2 {
   color: red;
 }
 
-.categoty-container h3 {
-  text-align: center;
+.categoty-container {
+  align-items: center;
+  background-color: rgb(67, 113, 158);
+  border: 2px solid rgb(67, 113, 158);
+  border-radius: 5px;
+  box-shadow: 0.5px 0.5px 1px 1px rgb(131, 126, 126);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  margin: 15px 1px;
+  width: 400px;
+}
+
+.categoty-container h3{
+
+}
+
+.categoty-container p{
+  background-color: white;
+  color: black;
+  width: 400px;
+}
+
+.question-container {
+  align-items: center;
+  background-color: rgb(67, 113, 158);
+  border: 2px solid rgb(67, 113, 158);
+  border-radius: 5px;
+  box-shadow: 0.5px 0.5px 1px 1px rgb(131, 126, 126);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0px;
+  width: 400px;
+}
+
+.question-container h3{
+
+}
+
+.question-container p{
+  background-color: white;
+  color: black;
+  min-height: 80px;
+  width: 400px;
 }
 
 .cq p {
@@ -117,8 +190,4 @@ h2 {
   margin: 5px;
   padding: 5px 10px;
   width: 380px;
-}
-
-.question-container h3 {
-  min-height: 80px;
 }
