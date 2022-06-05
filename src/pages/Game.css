@@ -1,8 +1,124 @@
+* {
+  margin: 0;
+}
+
+.game-container {
+  align-items: center;
+  background-color: #c2bebe;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.main-container {
+  align-items: center;
+  background-color: #c2bebe;
+  border: 2px solid rgb(170, 168, 168);
+  border-radius: 15px;
+  box-shadow: 2px 2px 3px 3px rgb(131, 126, 126);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: flex-start;
+  margin: 10px;
+  width: 500px;
+}
+
+.cabecalho {
+  align-items: center;
+  background-color: rgb(237, 237, 237);
+  border: 2px solid rgb(170, 168, 168);
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px 2px rgb(131, 126, 126);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 10px;
+  width: 400px;
+}
+
+.answers-container {
+  align-items: center;
+  background-color: rgb(237, 237, 237);
+  border: 2px solid rgb(67, 113, 158);
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px 2px rgb(131, 126, 126);
+  display: flex;
+  flex-direction: column;
+  font-weight: 200;
+  margin-bottom: 10px;
+  min-height: 180px;
+  padding-top: 10px;
+  width: 400px;
+}
+
+.answer {
+  background-color: rgb(67, 113, 158);
+  border: 3px solid rgb(67, 113, 158);
+  border-radius: 5px;
+  box-shadow: 0.5px 0.5px 1px 1px rgb(131, 126, 126);
+  color: white;
+  font-size: 1rem;
+  margin: 3px;
+  padding: 2px;
+  width: 300px;
+}
+
 .correct-answer {
+  background-color: white;
   border: 3px solid rgb(6, 240, 15);
+  color: green;
 }
 
 .incorrect-answer {
+  background-color: white;
   border: 3px solid red;
-  font-size: small;
+  color: red;
+}
+
+.Contador input {
+  font-size: 1.1rem;
+  width: 60px;
+}
+
+.btn-next {
+  background-color: rgb(67, 113, 158);
+  border: 1px solid rgb(67, 113, 158);
+  border-radius: 5px;
+  box-shadow: 0.5px 0.5px 1px 1px rgb(131, 126, 126);
+  color: white;
+  font-size: 1rem;
+  margin: 5px;
+  width: 70px;
+}
+
+h2 {
+  color: red;
+}
+
+.categoty-container h3 {
+  text-align: center;
+}
+
+.cq p {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 5px;
+}
+
+.cq h3 {
+  background-color: rgb(237, 237, 237);
+  border: 2px solid white;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px 2px rgb(131, 126, 126);
+  font-size: 1.1rem;
+  font-weight: 300;
+  margin: 5px;
+  padding: 5px 10px;
+  width: 380px;
+}
+
+.question-container h3 {
+  min-height: 80px;
 }

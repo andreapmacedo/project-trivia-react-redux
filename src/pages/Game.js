@@ -101,8 +101,8 @@ class Game extends Component {
   checkCorrect = (answer, correct) => answer === correct
 
   checkAnswer = (correct, questionIndex, answer) => {
-    this.setClassName(correct);
     this.setState({ btnsAnswertDisabled: true });
+    this.setClassName(correct);
     this.calcScore(this.checkCorrect(answer, correct));
     clearInterval(this.intervalId);
     const maxQuestions = 5;
@@ -124,8 +124,9 @@ class Game extends Component {
 
   getClassName = (index) => {
     const { stateClassName } = this.state;
-    if (index === stateClassName) return 'correct-answer';
-    if (stateClassName !== '') return 'incorrect-answer';
+    if (index === stateClassName) return 'correct-answer answer';
+    if (stateClassName !== '') return 'incorrect-answer answer';
+    return 'answer';
   }
 
   setPlayerRank = () => {
@@ -183,15 +184,21 @@ class Game extends Component {
       questionIndex, loading, shuffledAnswers,
       btnNextDisabled, seconds, btnsAnswertDisabled } = this.state;
     return (
-      <section>
+      <section className="game-container">
         { (questions.length > 0 && !loading)
         && (
-          <div>
+          <div className="main-container">
             <Header />
-            <h2 data-testid="question-category">{questions[questionIndex].category}</h2>
-            <p data-testid="question-text">{questions[questionIndex].question}</p>
+            <div className="categoty-container cq">
+              <p>Category:</p>
+              <h3 data-testid="question-category">{questions[questionIndex].category}</h3>
+            </div>
+            <div className="question-container cq">
+              <p>Question:</p>
+              <h3 data-testid="question-text">{questions[questionIndex].question}</h3>
+            </div>
             <h2>{seconds}</h2>
-            <div data-testid="answer-options">
+            <div data-testid="answer-options" className="answers-container">
               { shuffledAnswers.map((answer, index) => (
                 <button
                   key={ index }
@@ -215,6 +222,7 @@ class Game extends Component {
               {!btnNextDisabled
               && (
                 <button
+                  className="btn-next"
                   type="button"
                   data-testid="btn-next"
                   onClick={ this.nextQuestion }
@@ -235,7 +243,7 @@ Game.propTypes = {
     push: propTypes.func,
   }).isRequired,
   updateScore: propTypes.func.isRequired,
-  player: propTypes.objectOf.isRequired,
+  player: propTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

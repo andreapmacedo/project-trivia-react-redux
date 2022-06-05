@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { player } from '../redux/actions/playerActions';
+import './Login.css';
+import triviaImg from '../trivia.png';
 
 class Login extends React.Component {
   constructor() {
@@ -51,42 +53,52 @@ class Login extends React.Component {
   render() {
     const { email, name, isValidEmail, isValidName } = this.state;
     return (
-      <>
-        <h1>Tela Login</h1>
-        <div>
-          Nome
-          <input
-            data-testid="input-player-name"
-            type="text"
-            name="name"
-            onChange={ this.inputHandleChange }
-            value={ name }
-          />
-          Email
-          <input
-            data-testid="input-gravatar-email"
-            type="email"
-            name="email"
-            onChange={ this.inputHandleChange }
-            value={ email }
-          />
-          <button
-            data-testid="btn-play"
-            type="submit"
-            disabled={ !isValidEmail || !isValidName }
-            onClick={ this.goToGame }
-          >
-            Play
-          </button>
-          <button
-            data-testid="btn-settings"
-            type="button"
-            onClick={ this.goToSettings }
-          >
-            Settings
-          </button>
+      <div className="login">
+        <div className="logo">
+          <img src={ triviaImg } alt="trivia" />
         </div>
-      </>
+        <div className="menu-container">
+          <div className="input-conteiner">
+            Nome:
+            <input
+              className="login-input"
+              data-testid="input-player-name"
+              type="text"
+              name="name"
+              onChange={ this.inputHandleChange }
+              value={ name }
+            />
+          </div>
+          <div className="input-conteiner">
+            Email:
+            <input
+              className="login-input"
+              data-testid="input-gravatar-email"
+              type="email"
+              name="email"
+              onChange={ this.inputHandleChange }
+              value={ email }
+            />
+          </div>
+          <div className="btn-container">
+            <button
+              data-testid="btn-play"
+              type="submit"
+              disabled={ !isValidEmail || !isValidName }
+              onClick={ this.goToGame }
+            >
+              Play
+            </button>
+            <button
+              data-testid="btn-settings"
+              type="button"
+              onClick={ this.goToSettings }
+            >
+              Settings
+            </button>
+          </div>
+        </div>
+      </div>
     );
   }
 }
