@@ -52,3 +52,19 @@
   padding-top: 10px;
   width: 96%;
 }
+
+.btn-home {
+  background-color: black;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 0.5px 0.5px 1px 1px rgb(131, 126, 126);
+  color: white;
+  height: 30px;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  width: 140px;
+}
+
+.btn-home:hover {
+  box-shadow: 0.5px 0.5px 1px 1px #c2bebe;
+}

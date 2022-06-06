@@ -31,6 +31,7 @@ class Ranking extends Component {
         <div className="main-container">
           <h1 data-testid="ranking-title">Ranking</h1>
           <button
+            className="btn-home"
             type="button"
             data-testid="btn-go-home"
             onClick={ this.goToHome }

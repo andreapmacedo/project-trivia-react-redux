@@ -82,6 +82,7 @@ class Login extends React.Component {
           </div>
           <div className="btn-container">
             <button
+              className="btn-play"
               data-testid="btn-play"
               type="submit"
               disabled={ !isValidEmail || !isValidName }
@@ -90,6 +91,7 @@ class Login extends React.Component {
               Play
             </button>
             <button
+              className="btn-settings"
               data-testid="btn-settings"
               type="button"
               onClick={ this.goToSettings }

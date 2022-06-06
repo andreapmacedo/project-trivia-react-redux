@@ -1,15 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Andada+Pro&family=Kdam+Thmor+Pro&family=Oswald:wght@200;300;400;500;600&display=swap');
+
+* {
+  margin: 0;
+}
+
 .login {
   align-items: center;
   background-color: #c2bebe;
   display: flex;
   flex-direction: column;
+  font-family: 'Kdam Thmor Pro' , sans-serif;
   height: 100vh;
   justify-content: center;
   width: 100%;
 }
 
 img {
-  max-width: 300px;
+  max-width: 500px;
 }
 
 .logo {
@@ -24,6 +31,11 @@ img {
   border: 1px #7e857f solid;
   border-radius: 10px;
   box-shadow: 1px 1px 2px 2px rgb(131, 126, 126);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 25px;
+  min-width: 300px;
   padding: 10px;
 }
 
@@ -37,14 +49,48 @@ img {
   padding: 2px;
 }
 
+.login-input {
+  margin: 5px;
+  padding: 5px;
+  width: 250px;
+}
+
 .btn-container {
   display: flex;
+  justify-content: space-between;
   margin-top: 5px;
-  size: 400px;
 }
 
 .btn-container button {
-  margin-left: 5px;
-  margin-right: 5px;
-  width: 100px;
+  border-radius: 5px;
+  box-shadow: 0.5px 0.5px 1px 1px rgb(131, 126, 126);
+  height: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 140px;
+}
+
+button:hover {
+  box-shadow: 0.5px 0.5px 1px 1px #c2bebe;
+}
+
+.btn-play {
+  background-color: rgb(30, 174, 30);
+  border: 1px solid rgb(30, 174, 30);
+  color: white;
+}
+
+.btn-settings {
+  background-color: black;
+  border: 1px solid black;
+  /* background-color: #0d6efd;
+  border: 1px solid #0d6efd; */
+  color: white;
+}
+
+.btn-play:disabled {
+  background: rgb(200, 199, 199);
+  border: 0 solid rgb(30, 174, 30);
+  box-shadow: 0.5px 0.5px 1px 1px #c2bebe;
+  color: rgb(112, 112, 112);
 }

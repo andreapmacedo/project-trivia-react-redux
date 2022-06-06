@@ -39,13 +39,14 @@ class Feedback extends Component {
     const { assertions, score, resetScore } = this.props;
     return (
       <section className="feedback-container">
-        <div className="main-container">
+        <div className="feedback-main-container">
           <Header />
           {/* <h1>Feedback</h1> */}
           <h2 data-testid="feedback-text">{this.performanceFeedback()}</h2>
           <p data-testid="feedback-total-score">{score}</p>
           <p data-testid="feedback-total-question" id="assertions">{assertions}</p>
           <button
+            className="btn-pay-again"
             type="button"
             data-testid="btn-play-again"
             onClick={ this.playAgain }
@@ -54,6 +55,7 @@ class Feedback extends Component {
           </button>
           <Link to="/ranking">
             <button
+              className="btn-ranking"
               type="button"
               data-testid="btn-ranking"
               onClick={ resetScore }

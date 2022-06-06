@@ -13,7 +13,7 @@
   width: 100%;
 }
 
-.main-container {
+.feedback-main-container {
   align-items: center;
   background-color: #c2bebe;
   border: 2px solid rgb(170, 168, 168);
@@ -26,4 +26,19 @@
   justify-content: flex-start;
   margin: 10px;
   width: 450px;
+}
+
+.btn-pay-again, .btn-ranking {
+  background-color: black;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 0.5px 0.5px 1px 1px rgb(131, 126, 126);
+  color: white;
+  height: 30px;
+  margin: 5px;
+  width: 140px;
+}
+
+.btn-pay-again:hover, .btn-ranking:hover {
+  box-shadow: 0.5px 0.5px 1px 1px #c2bebe;
 }
