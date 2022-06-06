@@ -72,9 +72,7 @@ class Game extends Component {
     const response = await fetch(url);
     const apiData = await response.json();
     this.validateToken(apiData.response_code);
-    this.setState({
-      questions: apiData.results,
-    });
+    this.setState({ questions: apiData.results });
     this.getAnswers(0);
   }
 
@@ -85,9 +83,7 @@ class Game extends Component {
       const arr = questions[index].incorrect_answers
         .concat(questions[index].correct_answer);
       const shuffled = arr.sort(() => Math.random() - size);
-      this.setState({
-        shuffledAnswers: shuffled,
-      });
+      this.setState({ shuffledAnswers: shuffled });
     } else {
       const shuffled = ['True', 'False'];
       shuffled.sort(() => Math.random() - size);
@@ -104,9 +100,7 @@ class Game extends Component {
     clearInterval(this.intervalId);
     const maxQuestions = 5;
     if (questionIndex < maxQuestions) {
-      this.setState({
-        btnNextDisabled: false,
-      });
+      this.setState({ btnNextDisabled: false });
     }
   }
 

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Andada+Pro&family=Kdam+Thmor+Pro&family=Oswald:wght@200;300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Andada+Pro&family=Kdam+Thmor+Pro&family=Oswald:wght@200;300;400;500;600&display=swap') ;
 
 * {
   margin: 0;
@@ -21,7 +21,7 @@
   box-shadow: 2px 2px 3px 3px rgb(131, 126, 126);
   display: flex;
   flex-direction: column;
-  font-family: 'Kdam Thmor Pro' , sans-serif;
+  font-family: Kdam Thmor Pro , sans-serif;
   height: auto;
   justify-content: flex-start;
   margin: 10px;
@@ -40,7 +40,7 @@
 }
 
 .btn-pay-again:hover, .btn-ranking:hover {
-  box-shadow: 0.5px 0.5px 1px 1px #c2bebe;
+  box-shadow: 0.5px 0.5px 1px 1px #beb7b7;
 }
 
 .score-assertions {

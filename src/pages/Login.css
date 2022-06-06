@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Andada+Pro&family=Kdam+Thmor+Pro&family=Oswald:wght@200;300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Andada+Pro&family=Kdam+Thmor+Pro&family=Oswald:wght@200;300;400;500;600&display=swap') ;
 
 * {
   margin: 0;
@@ -9,7 +9,7 @@
   background-color: #c2bebe;
   display: flex;
   flex-direction: column;
-  font-family: 'Kdam Thmor Pro' , sans-serif;
+  font-family: Kdam Thmor Pro , sans-serif;
   height: 100vh;
   justify-content: center;
   width: 100%;
@@ -27,7 +27,7 @@ img {
 }
 
 .menu-container {
-  background-color: #c8c2c2;
+  background-color: rgb(237, 237, 237);
   border: 1px #7e857f solid;
   border-radius: 10px;
   box-shadow: 1px 1px 2px 2px rgb(131, 126, 126);
@@ -47,12 +47,6 @@ img {
 .input input {
   margin: 2px;
   padding: 2px;
-}
-
-.login-input {
-  margin: 5px;
-  padding: 5px;
-  width: 250px;
 }
 
 .btn-container {
@@ -91,4 +85,17 @@ button:hover {
   border: 0 solid rgb(30, 174, 30);
   box-shadow: 0.5px 0.5px 1px 1px #c2bebe;
   color: rgb(112, 112, 112);
+}
+
+.login-input {
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
+  width: 250px;
+}
+
+.login-input:focus {
+  border: 1px solid #0d6efd;
+  border-radius: 5px;
 }

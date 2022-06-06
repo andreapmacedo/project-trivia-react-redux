@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Andada+Pro&family=Kdam+Thmor+Pro&family=Oswald:wght@200;300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Andada+Pro&family=Kdam+Thmor+Pro&family=Oswald:wght@200;300;400;500;600&display=swap') ;
 
 * {
   margin: 0;
@@ -9,6 +9,7 @@
   background-color: #c2bebe;
   display: flex;
   flex-direction: column;
+  height: 100%;
   justify-content: flex-start;
   width: 100%;
 }
@@ -21,7 +22,7 @@
   box-shadow: 2px 2px 3px 3px rgb(131, 126, 126);
   display: flex;
   flex-direction: column;
-  font-family: 'Kdam Thmor Pro' , sans-serif;
+  font-family: Kdam Thmor Pro , sans-serif;
   height: 100vh;
   justify-content: flex-start;
   margin: 10px;
@@ -50,7 +51,7 @@
   border-radius: 5px;
   box-shadow: 0.5px 0.5px 1px 1px rgb(131, 126, 126);
   color: white;
-  font-family: 'Franklin Gothic Medium' , 'Arial Narrow' , Arial , sans-serif;
+  font-family: Franklin Gothic Medium , Arial Narrow , Arial , sans-serif;
   font-size: 0.9rem;
   margin: 3px;
   padding: 2px;
@@ -58,7 +59,7 @@
 }
 
 .answer:hover {
-  box-shadow: 0.5px 0.5px 1px 1px rgb(237, 237, 237);
+  box-shadow: 0.5px 0.5px 1px 1px #c2bebe;
 }
 
 /* button:disabled {
@@ -93,14 +94,14 @@
   border-radius: 5px;
   box-shadow: 0.5px 0.5px 1px 1px rgb(131, 126, 126);
   color: white;
-  font-family: 'Franklin Gothic Medium' , 'Arial Narrow' , Arial , sans-serif;
+  font-family: Franklin Gothic Medium , Arial Narrow , Arial , sans-serif;
   font-size: 1rem;
   margin: 5px;
   width: 70px;
 }
 
 .btn-next:hover {
-  box-shadow: 0.5px 0.5px 1px 1px rgb(237, 237, 237);
+  box-shadow: 0.5px 0.5px 1px 1px #c2bebe;
 }
 
 .categoty-container {
@@ -126,7 +127,7 @@ h2 {
   background-color: white;
   border-radius: 3px;
   color: #414141;
-  font-family: 'Franklin Gothic Medium' , 'Arial Narrow' , Arial , sans-serif;
+  font-family: Franklin Gothic Medium , Arial Narrow , Arial , sans-serif;
   padding-bottom: 3px;
   padding-top: 3px;
   text-align: center;
@@ -157,10 +158,11 @@ h2 {
 
 .question-container p {
   background-color: white;
+  border-bottom: 2px solid #0d6efd;
   border-radius: 3px 3px 0 0;
   color: #414141;
   font: 0.9em sans-serif;
-  font-family: 'Franklin Gothic Medium' , 'Arial Narrow' , Arial , sans-serif;
+  font-family: Franklin Gothic Medium , Arial Narrow , Arial , sans-serif;
   min-height: 80px;
   width: 96%;
 }
