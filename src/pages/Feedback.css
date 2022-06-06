@@ -22,7 +22,7 @@
   display: flex;
   flex-direction: column;
   font-family: 'Kdam Thmor Pro' , sans-serif;
-  height: 100vh;
+  height: auto;
   justify-content: flex-start;
   margin: 10px;
   width: 450px;
@@ -41,4 +41,8 @@
 
 .btn-pay-again:hover, .btn-ranking:hover {
   box-shadow: 0.5px 0.5px 1px 1px #c2bebe;
+}
+
+.score-assertions {
+  color: #0d6efd;
 }

@@ -11,7 +11,6 @@ class Game extends Component {
     this.state = { questions: [],
       shuffledAnswers: [],
       questionIndex: 0,
-      loading: false,
       btnNextDisabled: true,
       btnsAnswertDisabled: false,
       stateClassName: '',
@@ -68,7 +67,6 @@ class Game extends Component {
   }
 
   fetchQuestion = async () => {
-    this.setState({ loading: true });
     const token = localStorage.getItem('token');
     const url = `https://opentdb.com/api.php?amount=5&token=${token}`;
     const response = await fetch(url);
@@ -77,7 +75,6 @@ class Game extends Component {
     this.setState({
       questions: apiData.results,
     });
-    this.setState({ loading: false });
     this.getAnswers(0);
   }
 
@@ -115,7 +112,6 @@ class Game extends Component {
 
   setClassName = () => {
     const { shuffledAnswers, questions, questionIndex } = this.state;
-    // console.log(questions[questionIndex].correct_answer);
     const correctAnswer = questions[questionIndex].correct_answer;
     let correctIndex;
     shuffledAnswers.forEach((question, index) => {
@@ -184,11 +180,11 @@ class Game extends Component {
 
   render() {
     const { questions,
-      questionIndex, loading, shuffledAnswers,
+      questionIndex, shuffledAnswers,
       btnNextDisabled, seconds, btnsAnswertDisabled } = this.state;
     return (
       <section className="game-container">
-        { (questions.length > 0 && !loading)
+        { (questions.length > 0)
         && (
           <div className="main-container">
             <Header />

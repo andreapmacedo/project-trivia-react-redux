@@ -41,9 +41,10 @@ class Feedback extends Component {
       <section className="feedback-container">
         <div className="feedback-main-container">
           <Header />
-          {/* <h1>Feedback</h1> */}
           <h2 data-testid="feedback-text">{this.performanceFeedback()}</h2>
+          <p className="score-assertions">Score</p>
           <p data-testid="feedback-total-score">{score}</p>
+          <p className="score-assertions">Assertions</p>
           <p data-testid="feedback-total-question" id="assertions">{assertions}</p>
           <button
             className="btn-pay-again"
